@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="https://cdn.bootcss.com/gl-matrix/2.3.2/gl-matrix-min.js"></script>
+    <script src="app.js"></script>
+    <script id="shader-vs" type="x-shader/x-vertex">
+        attribute vec3 v3Position;
+        attribute vec3 color;
+        uniform mat4 ModelViewMx;
+        uniform mat4 ProjectionMx;
+        varying vec4 vColor;
+        void main(void)
+        {
+            vColor = vec4(color,1.0);
+            gl_Position =  ProjectionMx * ModelViewMx * vec4(v3Position , 1);
+            //vColor = vec4(0.8,0.8,0,1);
+        }
+    </script>
+    <script id="shader-fs" type="x-shader/x-fragment">
+        precision mediump float;
+        varying vec4 vColor;
+        void main(void)
+        {
+            gl_FragColor = vColor;
+        }
+    </script>
+</head>
+<body onload='init()'>
+<canvas id="myCanvas" style="border:1px solid red;" width='600px' height='600px'></canvas>
+</body>
+</html>
